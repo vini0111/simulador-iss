@@ -2,15 +2,37 @@ async function simular() {
 
     let copia = JSON.parse(JSON.stringify(jogos));
 
-    copia.forEach((j, i) => {
-        if (j.gols_casa === null) {
-            let c = document.getElementById("c"+(i+1)).value;
-            let f = document.getElementById("f"+(i+1)).value;
+    let iA = 0;
+    let iB = 0;
 
-            if (c !== "" && f !== "") {
-                j.gols_casa = parseInt(c);
-                j.gols_fora = parseInt(f);
+    copia.forEach((j) => {
+
+        if (j.grupo === "A") {
+
+            if (j.gols_casa === null) {
+                let c = document.getElementById("cA"+iA)?.value;
+                let f = document.getElementById("fA"+iA)?.value;
+
+                if (c !== "" && f !== "") {
+                    j.gols_casa = parseInt(c);
+                    j.gols_fora = parseInt(f);
+                }
             }
+            iA++;
+        }
+
+        if (j.grupo === "B") {
+
+            if (j.gols_casa === null) {
+                let c = document.getElementById("cB"+iB)?.value;
+                let f = document.getElementById("fB"+iB)?.value;
+
+                if (c !== "" && f !== "") {
+                    j.gols_casa = parseInt(c);
+                    j.gols_fora = parseInt(f);
+                }
+            }
+            iB++;
         }
     });
 
@@ -22,10 +44,10 @@ async function simular() {
 
     const data = await res.json();
 
-    console.log("RETORNO BACKEND:", data);
+    console.log(data);
 
     if (!data.A || !data.B) {
-        alert("Erro: backend não retornou os grupos corretamente");
+        alert("Erro no retorno do backend");
         return;
     }
 
