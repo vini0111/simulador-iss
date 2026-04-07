@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ISS Deluxe 2026 - 1ª Edição</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #38bdf8;
+        }
+
+        h2 {
+            color: #22c55e;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+        }
+
+        .box {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 6px;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        th {
+            background: #0ea5e9;
+        }
+
+        .grupo-title {
+            background: #334155;
+            font-weight: bold;
+        }
+
+        input {
+            width: 40px;
+            text-align: center;
+        }
+
+        .classificado {
+            background: #065f46;
+            font-weight: bold;
+        }
+
+        .btn {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .simular {
+            background: #22c55e;
+        }
+
+        .reset {
+            background: #ef4444;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>⚽ ISS Deluxe 2026 - 1ª Edição</h1>
+
+<div class="container">
+
+    <!-- JOGOS -->
+    <div class="box">
+        <h2>Jogos</h2>
+
+        <table>
+            <tr>
+                <th>Grupo</th>
+                <th>Casa</th>
+                <th>Placar</th>
+                <th>Fora</th>
+            </tr>
+
+            {% for j in jogos %}
+            <tr>
+                <td>{{ j.grupo }}</td>
+                <td>{{ j.casa }}</td>
+
+                <td>
+                    <input 
+    id="c{{ loop.index }}" 
+    value="{{ j.gols_casa if j.gols_casa is not none else '' }}"
+    {% if j.gols_casa is not none %} disabled {% endif %}
+>
+
+x
+
+<input 
+    id="f{{ loop.index }}" 
+    value="{{ j.gols_fora if j.gols_fora is not none else '' }}"
+    {% if j.gols_fora is not none %} disabled {% endif %}
+>
+                </td>
+
+                <td>{{ j.fora }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <button class="btn simular" onclick="simular()">Simular</button>
+        <button class="btn reset" onclick="resetar()">Resetar</button>
+    </div>
+
+    <!-- CLASSIFICAÇÃO -->
+    <div class="box">
+        <h2>Classificação</h2>
+
+        <h3>Grupo A</h3>
+        <table id="tabelaA"></table>
+
+        <h3>Grupo B</h3>
+        <table id="tabelaB"></table>
+    </div>
+
+</div>
+
+<script>
+    const jogos = {{ jogos | tojson }};
+</script>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>
