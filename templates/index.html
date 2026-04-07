@@ -3,6 +3,14 @@
 <head>
     <title>ISS Deluxe 2026 - 1ª Edição</title>
 
+<h1>⚽ ISS Deluxe 2026 - 1ª Edição</h1>
+<p style="text-align:center; font-size:12px; color:#94a3b8;">
+    Versão 1.3
+</p>
+<p style="text-align:center; font-size:11px; color:#64748b;">
+    Atualizado em: 07/04/2026
+</p>
+
     <style>
         body {
             font-family: Arial;
@@ -59,12 +67,23 @@
 
         .simular { background: #22c55e; }
         .reset { background: #ef4444; }
+
+	.classificado {
+    background: #065f46;
+    font-weight: bold;
+}
+
+.eliminado {
+    background: #7f1d1d;
+}
+
+.disputa {
+    background: #78350f;
+}
     </style>
 </head>
 
 <body>
-
-<h1>⚽ ISS Deluxe 2026 - 1ª Edição</h1>
 
 <div class="container">
 
@@ -86,13 +105,21 @@
     <tr>
         <td>{{ j.casa }}</td>
         <td>
-            <input id="cA{{ loop.index0 }}"
-                value="{{ j.gols_casa if j.gols_casa is not none else '' }}"
-                {% if j.gols_casa is not none %}disabled{% endif %}>
-            x
-            <input id="fA{{ loop.index0 }}"
-                value="{{ j.gols_fora if j.gols_fora is not none else '' }}"
-                {% if j.gols_fora is not none %}disabled{% endif %}>
+<input 
+    class="placar-casa"
+    data-idx="{{ loop.index0 }}"
+    value="{{ j.gols_casa if j.gols_casa is not none else '' }}"
+    {% if j.gols_casa is not none %}disabled{% endif %}
+>
+
+x
+
+<input 
+    class="placar-fora"
+    data-idx="{{ loop.index0 }}"
+    value="{{ j.gols_fora if j.gols_fora is not none else '' }}"
+    {% if j.gols_fora is not none %}disabled{% endif %}
+>
         </td>
         <td>{{ j.fora }}</td>
     </tr>
@@ -115,13 +142,21 @@
     <tr>
         <td>{{ j.casa }}</td>
         <td>
-            <input id="cB{{ loop.index0 }}"
-                value="{{ j.gols_casa if j.gols_casa is not none else '' }}"
-                {% if j.gols_casa is not none %}disabled{% endif %}>
-            x
-            <input id="fB{{ loop.index0 }}"
-                value="{{ j.gols_fora if j.gols_fora is not none else '' }}"
-                {% if j.gols_fora is not none %}disabled{% endif %}>
+<input 
+    class="placar-casa"
+    data-idx="{{ loop.index0 }}"
+    value="{{ j.gols_casa if j.gols_casa is not none else '' }}"
+    {% if j.gols_casa is not none %}disabled{% endif %}
+>
+
+x
+
+<input 
+    class="placar-fora"
+    data-idx="{{ loop.index0 }}"
+    value="{{ j.gols_fora if j.gols_fora is not none else '' }}"
+    {% if j.gols_fora is not none %}disabled{% endif %}
+>
         </td>
         <td>{{ j.fora }}</td>
     </tr>
@@ -129,7 +164,6 @@
 {% endfor %}
         </table>
 
-        <button class="btn simular" onclick="simular()">Simular</button>
         <button class="btn reset" onclick="resetar()">Resetar</button>
     </div>
 
